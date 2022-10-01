@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "name": "Aravind",
+      "address": "dewfgeufgreu",
+      "phone": "+91 9633975826",
+      "email": "ambujakshan98@gmail.com",
+      "id": 96
+    },
+    {
+      "name": "Ambujakshan",
+      "address": "gh",
+      "phone": "9633975826",
+      "email": "9633975826",
+      "id": 99
+    },
+    {
+      "name": "Ambujakshan",
+      "address": "PHARMACY USER",
+      "phone": "+91 9633975826",
+      "email": "ambujakshan98@gmail.com",
+      "id": 101
+    }
+  ]
+}

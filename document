@@ -1,0 +1,6 @@
+use jsonserver to for dummy api 
+
+json-server --watch db.json --port 8900
+
+
+use html javscript and jQuery for page design

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand"  href="./list.html?id=all">List of Users </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Register New User</a>
+            </li>
+            
+          </ul>
+        </div>  
+      </nav>
+
+<input id="seci" style="display: none;" type="text"  />
+<h2></h2>
+
+
+<div id="row" class="row">
+
+
+  </div>
+  
+</div>
+<script>
+
+function deletUser(id){
+let xhr = new XMLHttpRequest();
+xhr.open("DELETE", "http://localhost:8900/users/"+id);
+xhr.setRequestHeader("Accept", "application/json");
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onload = function() {
+
+ location.href='./list.html?id=all';
+}
+
+
+xhr.send();
+
+}
+ function loaduserdeatils()  {
+  
+let xhr = new XMLHttpRequest();
+xhr.open("GET", "http://localhost:8900/users");
+xhr.setRequestHeader("Accept", "application/json");
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onload = function() {
+    
+    diplayrestext(this.responseText);
+  }
+
+
+xhr.send();
+ }
+
+ function loaduserdeatilsByid(id)  {
+  
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:8900/users?id="+id);
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = function() {
+      
+      diplayrestextByid(this.responseText);
+    }
+  
+  
+  xhr.send();
+   }
+function diplayrestext(data){
+    
+    var userlist= JSON.parse(data);
+    for (var i = 0; i < userlist.length; i++) {
+    var counter = userlist[i];
+    var param=counter.id;
+
+    
+    var division = document.createElement('div');
+  
+var id="clm"+counter.id;
+
+var crid="crd"+counter.id;
+var angid="ang"+counter.id;
+    division.setAttribute('class', 'column');
+    division.setAttribute('id', id);
+    
+    document.getElementById("row").appendChild(division);
+   
+    var divisionang  = document.createElement('a');
+    divisionang.setAttribute('href','list.html?id='+counter.id);
+    divisionang.setAttribute('id', angid);
+  
+    document.getElementById(id).appendChild(divisionang);
+    var divisioncrd  = document.createElement('div');
+    divisioncrd.setAttribute('class', 'card');
+    divisioncrd.setAttribute('id', crid);
+    document.getElementById(angid).appendChild(divisioncrd);
+
+ 
+    var h3 = document.createElement('h3');
+    h3.textContent = counter.name;
+    
+    var p1 = document.createElement('p');
+    p1.textContent = counter.email;
+ 
+ 
+   
+  document.getElementById(crid).appendChild(h3);
+  document.getElementById(crid).appendChild(p1);
+  
+
+}
+    
+
+}
+
+function diplayrestextByid(data){
+    
+    var userlist= JSON.parse(data);
+    for (var i = 0; i < userlist.length; i++) {
+    var counter = userlist[i];
+    var param=counter.id;
+
+    var division = document.createElement('div');
+  
+var id="clm"+counter.id;
+
+var crid="crd"+counter.id;
+var angid="ang"+counter.id;
+    division.setAttribute('class', 'column');
+    division.setAttribute('id', id);
+    
+    document.getElementById("row").appendChild(division);
+   
+    // var divisionang  = document.createElement('a');
+    // divisionang.setAttribute('href','#');
+    // divisionang.setAttribute('id', angid);
+  
+    
+    var divisioncrd  = document.createElement('div');
+    divisioncrd.setAttribute('class', 'card');
+    divisioncrd.setAttribute('id', crid);
+    document.getElementById(id).appendChild(divisioncrd);
+
+ 
+    var h3 = document.createElement('h3');
+    h3.textContent = counter.name;
+    
+    var p1 = document.createElement('p');
+    p1.textContent = counter.email;
+    var p2 = document.createElement('p');
+    p2.textContent = counter.address;
+    var p3 = document.createElement('p');
+    p3.textContent = counter.phone;
+ 
+    var button = document.createElement('button');
+    button.textContent ="Delete";
+    button.setAttribute('class','btn btn-danger');
+    button.addEventListener("click", function() {
+  deletUser(counter.id);
+});
+  document.getElementById(crid).appendChild(h3);
+  document.getElementById(crid).appendChild(p1);
+  document.getElementById(crid).appendChild(p2);
+  document.getElementById(crid).appendChild(p3);
+  document.getElementById(crid).appendChild(button);
+}
+    
+
+}
+
+
+
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+let parameters=new URLSearchParams(window.location.search);
+  var x=parameters.get("id");
+  if(x == 'all'){
+ loaduserdeatils();
+  }
+else{
+    loaduserdeatilsByid(x);
+}
+});
+</script>
+</body>
+
+</html>
